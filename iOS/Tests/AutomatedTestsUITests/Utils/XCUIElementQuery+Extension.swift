@@ -1,3 +1,4 @@
+//
 /*
  * Copyright 2020 ZUP IT SERVICOS EM TECNOLOGIA E INOVACAO SA
  *
@@ -13,13 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+	
 
-package br.com.zup.beagle.sample.spring.service
+import XCTest
 
-import br.com.zup.beagle.sample.builder.PositioningBeagleScreenBuilder
-import org.springframework.stereotype.Service
+extension XCUIElementQuery: Sequence {
+    public typealias Iterator = AnyIterator<XCUIElement>
+    public func makeIterator() -> Iterator {
+        var index = 0
+        return AnyIterator {
+            guard index < self.count else { return nil }
 
-@Service
-class SampleScreenBuilderService {
-    fun createScreenBuilder() = PositioningBeagleScreenBuilder
+            let element = self.element(boundBy: index)
+            index = index + 1
+            return element
+        }
+    }
 }
